@@ -806,6 +806,15 @@ async function handleWizardSubmit() {
   // Save locally
   saveBookingLocal({ quest: bw.quest, date: bw.date, time: bw.time, phone, name: '', email: '', players: 2, message: '' });
 
+  // Send notifications (Telegram + email via serverless function)
+  try {
+    fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quest: getQuestName(bw.quest), date: bw.date, time: bw.time, phone, lang: currentLang })
+    }).catch(() => {});
+  } catch(e) {}
+
   // Show success
   document.getElementById('bookingWizard').style.display = 'none';
   const successEl = document.getElementById('bookingSuccess');
