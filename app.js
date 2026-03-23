@@ -267,7 +267,7 @@ const QUESTS = [
     id: 'experiment',
     nameKey: 'q1Name',
     descKey: 'q1Desc',
-    emoji: '\u{1F9EA}',
+    image: 'images/experiment.jpg',
     players: '2-10',
     duration: 60,
     fear: 4,
@@ -277,7 +277,7 @@ const QUESTS = [
     id: 'wrong-turn',
     nameKey: 'q2Name',
     descKey: 'q2Desc',
-    emoji: '\u{1F3DA}',
+    image: 'images/wrong-turn.png',
     players: '2-10',
     duration: 60,
     fear: 5,
@@ -287,7 +287,7 @@ const QUESTS = [
     id: 'horror-cinema',
     nameKey: 'q3Name',
     descKey: 'q3Desc',
-    emoji: '\u{1F3AC}',
+    image: 'images/horror-cinema.jpg',
     players: '2-10',
     duration: 90,
     fear: 5,
@@ -372,7 +372,7 @@ function renderQuests() {
     return `
       <article class="quest-card fade-in" data-quest="${q.id}">
         <div class="quest-image">
-          <span class="quest-emoji" aria-hidden="true">${q.emoji}</span>
+          <img src="${q.image}" alt="${t[q.nameKey]}" loading="lazy">
         </div>
         <div class="quest-body">
           <h3 class="quest-name">${t[q.nameKey]}</h3>
