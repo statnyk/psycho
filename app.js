@@ -4,12 +4,12 @@
    ============================================ */
 
 // --- Supabase Client ---
-let supabase = null;
+let _sbClient = null;
 function getSupabase() {
-  if (!supabase && window.supabase && typeof CONFIG !== 'undefined') {
-    supabase = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+  if (!_sbClient && window.supabase && typeof CONFIG !== 'undefined' && CONFIG) {
+    _sbClient = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
   }
-  return supabase;
+  return _sbClient;
 }
 
 // --- Translations ---
