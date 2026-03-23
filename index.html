@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSYCHO — Horror Quest | Face Your Fears</title>
+  <meta name="description" content="PSYCHO Horror Quest — immersive escape rooms with live actors in Chisinau, Moldova. Book your nightmare experience online. Available in English, Romanian, and Russian.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PSYCHO — Horror Quest">
+  <meta property="og:description" content="Immersive horror escape rooms with live actors. Face your fears. Book your nightmare.">
+  <meta property="og:image" content="og-image.svg">
+  <meta property="og:url" content="YOURDOMAIN">
+  <meta property="og:site_name" content="PSYCHO Horror Quest">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ro_RO">
+  <meta property="og:locale:alternate" content="ru_RU">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PSYCHO — Horror Quest">
+  <meta name="twitter:description" content="Immersive horror escape rooms with live actors. Face your fears.">
+  <meta name="twitter:image" content="og-image.svg">
+
+  <!-- Favicon (inline SVG data URI) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🎭</text></svg>">
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+
+  <!-- Critical inline CSS -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #0a0a0a; color: #e8e8e8; min-height: 100vh; overflow-x: hidden; }
+    .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #2a2a2a; }
+    .navbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; max-width: 1200px; margin: 0 auto; }
+    .logo { font-family: 'Creepster', cursive; font-size: 28px; color: #cc0000; text-decoration: none; letter-spacing: 3px; text-shadow: 0 0 20px rgba(204,0,0,0.3); }
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 80px 16px 40px; }
+    .hero-title { font-family: 'Creepster', cursive; font-size: clamp(56px, 12vw, 120px); color: #cc0000; letter-spacing: 8px; text-shadow: 0 0 40px rgba(204,0,0,0.3); line-height: 1; margin-bottom: 16px; }
+  </style>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="YOURDOMAIN" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar" role="banner">
+    <nav class="navbar-inner" aria-label="Main navigation">
+      <a href="#" class="logo" aria-label="PSYCHO Horror Quest - Home">PSYCHO</a>
+
+      <!-- Desktop Nav -->
+      <ul class="nav-links" role="menubar">
+        <li role="none"><a href="#quests" role="menuitem" data-i18n="navQuests">Quests</a></li>
+        <li role="none"><a href="#pricing" role="menuitem" data-i18n="navPricing">Pricing</a></li>
+        <li role="none"><a href="#booking" role="menuitem" data-i18n="navBooking">Book Now</a></li>
+        <li role="none"><a href="#contact" role="menuitem" data-i18n="navContact">Contact</a></li>
+        <li role="none"><a href="#history" role="menuitem" data-i18n="navHistory">My Bookings</a></li>
+      </ul>
+
+      <div class="nav-controls">
+        <!-- Language Switcher -->
+        <div class="lang-switcher" role="radiogroup" aria-label="Language selection">
+          <button class="lang-btn active" data-lang="en" role="radio" aria-checked="true">EN</button>
+          <button class="lang-btn" data-lang="ro" role="radio" aria-checked="false">RO</button>
+          <button class="lang-btn" data-lang="ru" role="radio" aria-checked="false">RU</button>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Switch to light theme">&#x2600;&#xFE0F;</button>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">&#x2630;</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <a href="#quests" data-i18n="navQuests">Quests</a>
+    <a href="#pricing" data-i18n="navPricing">Pricing</a>
+    <a href="#booking" data-i18n="navBooking">Book Now</a>
+    <a href="#contact" data-i18n="navContact">Contact</a>
+    <a href="#history" data-i18n="navHistory">My Bookings</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">PSYCHO</h1>
+      <p class="hero-subtitle" data-i18n="heroSubtitle">Horror Quest</p>
+      <p class="hero-tagline" data-i18n="heroTagline">Face your fears. Book your nightmare.</p>
+      <a href="#booking" class="hero-cta" data-i18n="heroCta">Book Now</a>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">&#x2193;</div>
+  </section>
+
+  <!-- ===== QUESTS ===== -->
+  <section id="quests">
+    <div class="container">
+      <h2 class="section-title fade-in" data-i18n="questsTitle">Our Quests</h2>
+      <p class="section-subtitle fade-in" data-i18n="questsSubtitle">Choose your nightmare. Each quest is a unique horror experience with live actors.</p>
+      <div class="quests-grid" id="questsGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section id="how-it-works">
+    <div class="container">
+      <h2 class="section-title fade-in" data-i18n="howTitle">How It Works</h2>
+      <p class="section-subtitle fade-in" data-i18n="howSubtitle">Your horror experience in 4 simple steps</p>
+      <div class="info-grid">
+        <div class="info-card fade-in">
+          <div class="info-icon" aria-hidden="true">&#x1F50D;</div>
+          <h3 class="info-title" data-i18n="how1Title">Choose a Quest</h3>
+          <p class="info-text" data-i18n="how1Text">Browse our horror quests and pick the one that calls to you.</p>
+        </div>
+        <div class="info-card fade-in">
+          <div class="info-icon" aria-hidden="true">&#x1F4C5;</div>
+          <h3 class="info-title" data-i18n="how2Title">Book Online</h3>
+          <p class="info-text" data-i18n="how2Text">Select your date, time, and number of players. We'll confirm via email.</p>
+        </div>
+        <div class="info-card fade-in">
+          <div class="info-icon" aria-hidden="true">&#x1F3AD;</div>
+          <h3 class="info-title" data-i18n="how3Title">Arrive & Play</h3>
+          <p class="info-text" data-i18n="how3Text">Come 15 minutes early. Our actors and effects will do the rest.</p>
+        </div>
+        <div class="info-card fade-in">
+          <div class="info-icon" aria-hidden="true">&#x1F3C6;</div>
+          <h3 class="info-title" data-i18n="how4Title">Survive & Share</h3>
+          <p class="info-text" data-i18n="how4Text">If you make it out alive, share your experience with friends!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING ===== -->
+  <section id="pricing">
+    <div class="container">
+      <h2 class="section-title fade-in" data-i18n="pricingTitle">Pricing</h2>
+      <p class="section-subtitle fade-in" data-i18n="pricingSubtitle">Simple, transparent pricing. No hidden fees.</p>
+      <div class="pricing-card fade-in">
+        <div class="price-row">
+          <span class="price-label" data-i18n="price1Label">2–3 Players</span>
+          <span class="price-value">1,000 MDL</span>
+        </div>
+        <div class="price-row">
+          <span class="price-label" data-i18n="price2Label">Each additional player</span>
+          <span class="price-value">+300 MDL</span>
+        </div>
+        <div class="price-row">
+          <span class="price-label" data-i18n="price3Label">Maximum capacity</span>
+          <span class="price-value" data-i18n="price3Value">10 players</span>
+        </div>
+        <p class="price-note" data-i18n="priceNote">Payment accepted on-site: cash or card. Corporate packages available.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BOOKING ===== -->
+  <section id="booking">
+    <div class="container">
+      <h2 class="section-title fade-in" data-i18n="bookingTitle">Book Your Quest</h2>
+      <p class="section-subtitle fade-in" data-i18n="bookingSubtitle">Fill in the form below. We'll confirm your booking via email within 1 hour.</p>
+
+      <!-- Booking Form -->
+      <!-- IMPORTANT: Replace YOUR_EMAIL@example.com with your actual email -->
+      <form class="booking-form fade-in" id="bookingForm" action="https://formsubmit.co/YOUR_EMAIL@example.com" method="POST">
+        <!-- FormSubmit config -->
+        <input type="hidden" name="_subject" value="New PSYCHO Quest Booking">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="form-group">
+          <label class="form-label" for="formName" data-i18n="formName">Your Name</label>
+          <input class="form-input" type="text" id="formName" name="name" required data-i18n-ph="formNamePh" placeholder="John Doe" autocomplete="name">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="formPhone" data-i18n="formPhone">Phone Number</label>
+            <input class="form-input" type="tel" id="formPhone" name="phone" required data-i18n-ph="formPhonePh" placeholder="+373 XX XXX XXX" autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="formEmail" data-i18n="formEmail">Email</label>
+            <input class="form-input" type="email" id="formEmail" name="email" required data-i18n-ph="formEmailPh" placeholder="you@example.com" autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="formQuestSelect" data-i18n="formQuest">Select Quest</label>
+          <select class="form-select" id="formQuestSelect" name="quest" required>
+            <!-- Populated by JS -->
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="formDateInput" data-i18n="formDate">Preferred Date</label>
+            <input class="form-input" type="text" id="formDateInput" name="date" required placeholder="Select date..." readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="formTimeSelect" data-i18n="formTime">Preferred Time</label>
+            <select class="form-select" id="formTimeSelect" name="time" required>
+              <!-- Populated by JS -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="formPlayers" data-i18n="formPlayers">Number of Players</label>
+          <select class="form-select" id="formPlayers" name="players" required>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="formMessage" data-i18n="formMessage">Special Requests (optional)</label>
+          <textarea class="form-input" id="formMessage" name="message" rows="3" data-i18n-ph="formMessagePh" placeholder="Birthday, team building, special needs..."></textarea>
+        </div>
+
+        <button class="form-submit" type="submit" data-i18n="formSubmit">Confirm Booking</button>
+      </form>
+
+      <!-- Booking Success -->
+      <div class="booking-success" id="bookingSuccess">
+        <div class="checkmark" aria-hidden="true">&#x2705;</div>
+        <h3 data-i18n="successTitle">Booking Received!</h3>
+        <p><strong class="booking-success-quest"></strong> &mdash; <span class="booking-success-date"></span></p>
+        <p data-i18n="successText">We'll confirm your booking via email within 1 hour. Get ready to face your fears!</p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px;">
+          <button class="share-btn" onclick="shareBooking()">&#x1F4E4; <span data-i18n="successShare">Share with friends</span></button>
+          <button class="share-btn" onclick="resetBookingForm()">&#x1F504; <span data-i18n="successAnother">Book Another Quest</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BOOKING HISTORY ===== -->
+  <section id="history">
+    <div class="container">
+      <h2 class="section-title fade-in" data-i18n="historyTitle">My Bookings</h2>
+      <p class="section-subtitle fade-in" data-i18n="historySubtitle">Your booking history is saved locally on this device.</p>
+      <div class="history-list" id="historyList">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title fade-in" data-i18n="contactTitle">Contact Us</h2>
+      <p class="section-subtitle fade-in" data-i18n="contactSubtitle">Questions? Reach out anytime.</p>
+
+      <div class="contact-grid">
+        <div class="contact-item fade-in">
+          <span class="contact-icon" aria-hidden="true">&#x1F4CD;</span>
+          <div>
+            <div class="contact-label" data-i18n="contactAddress">Address</div>
+            <div class="contact-value">Chisinau, Moldova</div>
+          </div>
+        </div>
+        <div class="contact-item fade-in">
+          <span class="contact-icon" aria-hidden="true">&#x1F4DE;</span>
+          <div>
+            <div class="contact-label" data-i18n="contactPhone">Phone</div>
+            <div class="contact-value"><a href="tel:+37300000000">+373 XX XXX XXX</a></div>
+          </div>
+        </div>
+        <div class="contact-item fade-in">
+          <span class="contact-icon" aria-hidden="true">&#x2709;&#xFE0F;</span>
+          <div>
+            <div class="contact-label" data-i18n="contactEmail">Email</div>
+            <div class="contact-value"><a href="mailto:info@psycho.md">info@psycho.md</a></div>
+          </div>
+        </div>
+        <div class="contact-item fade-in">
+          <span class="contact-icon" aria-hidden="true">&#x1F552;</span>
+          <div>
+            <div class="contact-label" data-i18n="contactHours">Hours</div>
+            <div class="contact-value">
+              <div data-i18n="hoursWeekday">Mon–Fri: 18:00 – 01:00</div>
+              <div data-i18n="hoursWeekend">Sat–Sun: 13:00 – 01:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Links -->
+      <div style="text-align: center; margin-top: 32px;" class="fade-in">
+        <p style="color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;" data-i18n="contactSocial">Follow Us</p>
+        <div class="social-links" style="justify-content: center;">
+          <a href="#" class="social-link" aria-label="Facebook" title="Facebook">f</a>
+          <a href="#" class="social-link" aria-label="Instagram" title="Instagram">ig</a>
+          <a href="#" class="social-link" aria-label="TikTok" title="TikTok">tk</a>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="map-container fade-in">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d87245.53361985845!2d28.77357!3d47.02477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97c3628b769a1%3A0x37d1d6305749dd3c!2zQ2hpyJlpbsSDdQ!5e0!3m2!1sen!2smd!4v1"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="PSYCHO Horror Quest location map">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p class="footer-text">
+        <span data-i18n="footerBuilt">Built with</span> &#x2764;&#xFE0F; &mdash; &copy; <span id="currentYear">2026</span> PSYCHO.
+        <span data-i18n="footerRights">All rights reserved.</span><br>
+        <a href="https://github.com/AurelDeveloper/psycho" target="_blank" rel="noopener">GitHub</a>
+        &middot;
+        <a href="https://buymeacoffee.com/YOURHANDLE" target="_blank" rel="noopener" data-i18n="footerSupport">Support this project</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
+
+  <!-- App JS -->
+  <script src="app.js" defer></script>
+</body>
+</html>

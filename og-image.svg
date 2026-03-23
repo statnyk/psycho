@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0a"/>
+      <stop offset="50%" style="stop-color:#1a0a0a"/>
+      <stop offset="100%" style="stop-color:#0a0a0a"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="bigGlow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Blood drip accents -->
+  <circle cx="200" cy="0" r="80" fill="#8b0000" opacity="0.15"/>
+  <circle cx="1000" cy="630" r="120" fill="#8b0000" opacity="0.1"/>
+  <ellipse cx="600" cy="315" rx="500" ry="200" fill="#1a0000" opacity="0.3"/>
+  <!-- Main title -->
+  <text x="600" y="260" font-family="Georgia, serif" font-size="120" font-weight="bold" fill="#cc0000" text-anchor="middle" filter="url(#bigGlow)" letter-spacing="20">PSYCHO</text>
+  <!-- Subtitle -->
+  <text x="600" y="340" font-family="Arial, sans-serif" font-size="36" fill="#888888" text-anchor="middle" filter="url(#glow)" letter-spacing="8">HORROR QUEST</text>
+  <!-- Tagline -->
+  <text x="600" y="420" font-family="Arial, sans-serif" font-size="24" fill="#cc0000" text-anchor="middle" opacity="0.8">Face Your Fears. Book Your Nightmare.</text>
+  <!-- Bottom accent line -->
+  <rect x="400" y="470" width="400" height="2" fill="#cc0000" opacity="0.5"/>
+  <!-- Website -->
+  <text x="600" y="530" font-family="Arial, sans-serif" font-size="20" fill="#555555" text-anchor="middle">psycho-quest.vercel.app</text>
+</svg>
