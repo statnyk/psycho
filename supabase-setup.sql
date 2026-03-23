@@ -56,6 +56,14 @@ CREATE POLICY "bookings_public_read" ON bookings FOR SELECT USING (true);
 -- Authenticated users (admin) can update bookings (confirm/cancel)
 CREATE POLICY "bookings_admin_update" ON bookings FOR UPDATE USING (auth.role() = 'authenticated');
 
+-- Authenticated users (admin) can delete bookings
+CREATE POLICY "bookings_admin_delete" ON bookings FOR DELETE USING (auth.role() = 'authenticated');
+
+-- Authenticated users (admin) can manage rooms
+CREATE POLICY "rooms_admin_insert" ON rooms FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "rooms_admin_update" ON rooms FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "rooms_admin_delete" ON rooms FOR DELETE USING (auth.role() = 'authenticated');
+
 -- Seed rooms
 INSERT INTO rooms (slug, name_en, name_ro, name_ru, capacity_min, capacity_max, duration_minutes, fear_level, has_actors, image_url, sort_order) VALUES
   ('experiment', 'The Experiment', 'Experimentul', 'Эксперимент', 2, 10, 60, 4, true, 'images/experiment.jpg', 1),
