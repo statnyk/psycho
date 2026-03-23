@@ -644,7 +644,12 @@ function initBookingWizard() {
     const phoneInput = document.getElementById('bwPhone');
     if (phoneInput) {
       phoneInput.addEventListener('input', function() {
-        if (!this.value.startsWith('+373 ')) this.value = '+373 ';
+        if (!this.value.startsWith('+373 ')) {
+          // Extract any digits after 373 if user pasted a full number
+          const digits = this.value.replace(/\D/g, '');
+          const after373 = digits.startsWith('373') ? digits.slice(3) : digits;
+          this.value = '+373 ' + after373;
+        }
       });
       phoneInput.addEventListener('focus', function() {
         if (this.selectionStart < 5) this.setSelectionRange(5, 5);
@@ -867,7 +872,7 @@ function resetBookingForm() {
       if (el) el.classList.add('bw-hidden');
     });
     const phone = document.getElementById('bwPhone');
-    if (phone) phone.value = '';
+    if (phone) phone.value = '+373 ';
   }
   if (successEl) successEl.classList.remove('show');
 }
