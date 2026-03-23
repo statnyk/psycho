@@ -636,6 +636,17 @@ function initBookingWizard() {
     }
     const submitBtn = document.getElementById('bwSubmit');
     if (submitBtn) submitBtn.addEventListener('click', handleWizardSubmit);
+
+    // Keep +373 prefix in phone input
+    const phoneInput = document.getElementById('bwPhone');
+    if (phoneInput) {
+      phoneInput.addEventListener('input', function() {
+        if (!this.value.startsWith('+373 ')) this.value = '+373 ';
+      });
+      phoneInput.addEventListener('focus', function() {
+        if (this.selectionStart < 5) this.setSelectionRange(5, 5);
+      });
+    }
   }
 
   updateSummary();
