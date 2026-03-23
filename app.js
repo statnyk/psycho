@@ -750,12 +750,20 @@ function updateSummary() {
 }
 
 async function handleWizardSubmit() {
-  const phone = document.getElementById('bwPhone')?.value.trim();
+  const phoneRaw = document.getElementById('bwPhone')?.value.trim() || '';
+  const phone = phoneRaw.replace(/\s+/g, ' ');
+  const phoneDigits = phoneRaw.replace(/\D/g, '');
   const submitBtn = document.getElementById('bwSubmit');
   const t = T[currentLang];
 
-  if (!bw.quest || !bw.date || !bw.time || !phone) {
-    document.getElementById('bwPhone')?.focus();
+  // +373 = 3 digits, need at least 8 more (MD numbers are 8 digits after country code)
+  if (!bw.quest || !bw.date || !bw.time || phoneDigits.length < 11) {
+    const phoneInput = document.getElementById('bwPhone');
+    if (phoneInput) {
+      phoneInput.focus();
+      phoneInput.style.borderColor = 'var(--accent)';
+      setTimeout(() => { phoneInput.style.borderColor = ''; }, 2000);
+    }
     return;
   }
 
