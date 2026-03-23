@@ -528,8 +528,8 @@ function renderSlider() {
           <span><img src="images/Friday_13.svg" alt="" class="meta-horror-icon"> ${q.duration} ${t.metaMinutes}</span>
           ${q.hasActors ? `<span><img src="images/Ghostface.svg" alt="" class="meta-horror-icon"> ${t.metaActors}</span>` : ''}
         </div>
-        <a href="booking.html?quest=${q.id}" class="hero-cta">${t.sliderCta}</a>
-        <div class="slide-link"><a href="quests.html" class="slide-view-rooms" data-i18n="navQuests">${t.navQuests}</a></div>
+        <a href="/booking?quest=${q.id}" class="hero-cta">${t.sliderCta}</a>
+        <div class="slide-link"><a href="/quests" class="slide-view-rooms" data-i18n="navQuests">${t.navQuests}</a></div>
       </div>
     </div>
   `).join('') + `
@@ -586,7 +586,7 @@ function renderQuests() {
             <span class="fear-label">${t.fearLabel}:</span>
             <div class="fear-dots" role="img" aria-label="Fear level ${q.fear} out of 5">${fearDots}</div>
           </div>
-          <a href="booking.html?quest=${q.id}" class="quest-book-btn">${t.questBook}</a>
+          <a href="/booking?quest=${q.id}" class="quest-book-btn">${t.questBook}</a>
         </div>
       </article>
     `;
@@ -950,10 +950,10 @@ function closeMobileNav() {
 
 // --- Active Nav Highlight ---
 function highlightActiveNav() {
-  const page = window.location.pathname.split('/').pop() || 'index.html';
+  const path = window.location.pathname;
   document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(a => {
     const href = a.getAttribute('href');
-    if (href === page || (page === 'index.html' && href === 'index.html')) {
+    if (href === path || (path === '/' && href === '/')) {
       a.classList.add('nav-active');
     }
   });
