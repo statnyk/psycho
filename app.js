@@ -167,7 +167,8 @@ const T = {
     timeTaken: 'Booked',
     timePast: 'Past',
     formDetails: 'Your Details',
-    timeSlots: ['18:00', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00']
+    timeSlots: ['18:00', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00'],
+    timeSlotsWeekend: ['13:00', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00']
   },
   ro: {
     navHome: 'Acasa',
@@ -316,7 +317,8 @@ const T = {
     timeTaken: 'Rezervat',
     timePast: 'Trecut',
     formDetails: 'Datele tale',
-    timeSlots: ['18:00', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00']
+    timeSlots: ['18:00', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00'],
+    timeSlotsWeekend: ['13:00', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00']
   },
   ru: {
     navHome: 'Главная',
@@ -465,7 +467,8 @@ const T = {
     timeTaken: 'Занято',
     timePast: 'Прошло',
     formDetails: 'Ваши данные',
-    timeSlots: ['18:00', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00']
+    timeSlots: ['18:00', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00'],
+    timeSlotsWeekend: ['13:00', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00']
   }
 };
 
@@ -667,6 +670,7 @@ function initInlineDatePicker() {
     maxDate: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
     dateFormat: 'Y-m-d',
     theme: 'dark',
+    locale: { firstDayOfWeek: 1 },
     onChange: function(selectedDates, dateStr) {
       bw.date = dateStr;
       bw.time = null;
@@ -677,11 +681,17 @@ function initInlineDatePicker() {
   });
 }
 
+function isWeekend(dateStr) {
+  const d = new Date(dateStr + 'T12:00:00');
+  return d.getDay() === 0 || d.getDay() === 6;
+}
+
 async function renderTimeGrid() {
   const grid = document.getElementById('bwTimeGrid');
   if (!grid || !bw.quest || !bw.date) return;
   const t = T[currentLang];
-  const slots = t.timeSlots || T.en.timeSlots;
+  const weekend = isWeekend(bw.date);
+  const slots = weekend ? (t.timeSlotsWeekend || T.en.timeSlotsWeekend) : (t.timeSlots || T.en.timeSlots);
 
   grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:12px;color:var(--text-muted)">...</div>';
 
@@ -817,7 +827,8 @@ async function getBookedSlots(date, questSlug) {
   if (!allBookings) return [];
 
   const takenSlots = [];
-  const slots = T[currentLang]?.timeSlots || T.en.timeSlots;
+  const weekend = isWeekend(date);
+  const slots = weekend ? (T[currentLang]?.timeSlotsWeekend || T.en.timeSlotsWeekend) : (T[currentLang]?.timeSlots || T.en.timeSlots);
 
   for (const slot of slots) {
     const bookingsAtSlot = allBookings.filter(b => b.time_slot === slot);
