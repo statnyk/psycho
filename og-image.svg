@@ -34,5 +34,5 @@
   <!-- Bottom accent line -->
   <rect x="400" y="470" width="400" height="2" fill="#cc0000" opacity="0.5"/>
   <!-- Website -->
-  <text x="600" y="530" font-family="Arial, sans-serif" font-size="20" fill="#555555" text-anchor="middle">psycho-quest.vercel.app</text>
+  <text x="600" y="530" font-family="Arial, sans-serif" font-size="20" fill="#555555" text-anchor="middle">psycho-phi.vercel.app</text>
 </svg>
