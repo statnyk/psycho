@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSYCHO Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>&#x2699;</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a; --surface: #141414; --surface2: #1e1e1e;
+      --border: #2a2a2a; --text: #e5e5e5; --text2: #999;
+      --accent: #e53935; --accent2: #ff7043; --green: #43a047; --yellow: #fdd835;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    .admin-login { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; width: 100%; max-width: 400px; }
+    .login-card h1 { font-size: 24px; margin-bottom: 8px; }
+    .login-card p { color: var(--text2); margin-bottom: 24px; font-size: 14px; }
+    .login-card input { width: 100%; padding: 12px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; margin-bottom: 12px; }
+    .login-card input:focus { outline: none; border-color: var(--accent); }
+    .login-card button { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .login-card button:hover { opacity: 0.9; }
+    .login-error { color: var(--accent); font-size: 13px; margin-bottom: 12px; display: none; }
+
+    .admin-app { display: none; }
+    .admin-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .admin-header h1 { font-size: 18px; }
+    .admin-header .user-info { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text2); }
+    .btn-logout { padding: 8px 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 13px; cursor: pointer; }
+    .btn-logout:hover { border-color: var(--accent); }
+
+    .admin-controls { padding: 20px 24px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .admin-controls select, .admin-controls input { padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; }
+    .admin-controls input[type="date"] { min-width: 160px; }
+    .stats-bar { padding: 0 24px 16px; display: flex; gap: 16px; flex-wrap: wrap; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; min-width: 140px; }
+    .stat-card .stat-num { font-size: 28px; font-weight: 700; }
+    .stat-card .stat-label { font-size: 12px; color: var(--text2); margin-top: 4px; }
+    .stat-card.pending .stat-num { color: var(--yellow); }
+    .stat-card.confirmed .stat-num { color: var(--green); }
+    .stat-card.total .stat-num { color: var(--accent2); }
+
+    .bookings-table { padding: 0 24px 40px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { text-align: left; padding: 12px 16px; background: var(--surface); border-bottom: 1px solid var(--border); color: var(--text2); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    tr:hover td { background: var(--surface2); }
+    .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
+    .badge-pending { background: rgba(253,216,53,0.15); color: var(--yellow); }
+    .badge-confirmed { background: rgba(67,160,71,0.15); color: var(--green); }
+    .badge-cancelled { background: rgba(229,57,53,0.15); color: var(--accent); }
+    .action-btn { padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; margin-right: 4px; }
+    .btn-confirm { background: rgba(67,160,71,0.2); color: var(--green); }
+    .btn-confirm:hover { background: rgba(67,160,71,0.35); }
+    .btn-cancel { background: rgba(229,57,53,0.2); color: var(--accent); }
+    .btn-cancel:hover { background: rgba(229,57,53,0.35); }
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--text2); }
+
+    @media (max-width: 768px) {
+      .admin-controls { padding: 16px; }
+      .stats-bar { padding: 0 16px 12px; }
+      .bookings-table { padding: 0 16px 40px; }
+      td, th { padding: 10px 12px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="admin-login" id="adminLogin">
+    <div class="login-card">
+      <h1>PSYCHO Admin</h1>
+      <p>Sign in to manage bookings</p>
+      <div class="login-error" id="loginError">Invalid email or password</div>
+      <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email" required autocomplete="email">
+        <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN APP -->
+  <div class="admin-app" id="adminApp">
+    <header class="admin-header">
+      <h1>PSYCHO Bookings</h1>
+      <div class="user-info">
+        <span id="adminEmail"></span>
+        <button class="btn-logout" id="btnLogout">Logout</button>
+      </div>
+    </header>
+
+    <div class="admin-controls">
+      <input type="date" id="filterDate" value="">
+      <select id="filterRoom">
+        <option value="">All Rooms</option>
+      </select>
+      <select id="filterStatus">
+        <option value="">All Statuses</option>
+        <option value="pending">Pending</option>
+        <option value="confirmed">Confirmed</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-card total"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total</div></div>
+      <div class="stat-card pending"><div class="stat-num" id="statPending">0</div><div class="stat-label">Pending</div></div>
+      <div class="stat-card confirmed"><div class="stat-num" id="statConfirmed">0</div><div class="stat-label">Confirmed</div></div>
+    </div>
+
+    <div class="bookings-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Quest</th>
+            <th>Customer</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Players</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="bookingsBody"></tbody>
+      </table>
+      <div class="empty-state" id="emptyState" style="display:none;">No bookings found</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="config.js" onerror="window.CONFIG=null"></script>
+  <script>
+    if (!window.CONFIG) { document.body.innerHTML = '<p style="color:#e53935;padding:40px;text-align:center">config.js missing. Admin panel requires configuration.</p>'; throw new Error('No config'); }
+    const sb = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+
+    let rooms = [];
+    let currentBookings = [];
+
+    // --- Auth ---
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) {
+        document.getElementById('loginError').style.display = 'block';
+        document.getElementById('loginError').textContent = error.message;
+      } else {
+        showApp();
+      }
+    });
+
+    document.getElementById('btnLogout').addEventListener('click', async () => {
+      await sb.auth.signOut();
+      document.getElementById('adminApp').style.display = 'none';
+      document.getElementById('adminLogin').style.display = 'flex';
+    });
+
+    async function checkSession() {
+      const { data: { session } } = await sb.auth.getSession();
+      if (session) showApp();
+    }
+
+    async function showApp() {
+      const { data: { user } } = await sb.auth.getUser();
+      document.getElementById('adminLogin').style.display = 'none';
+      document.getElementById('adminApp').style.display = 'block';
+      document.getElementById('adminEmail').textContent = user.email;
+
+      // Set default date filter to today
+      document.getElementById('filterDate').value = new Date().toISOString().split('T')[0];
+
+      await loadRooms();
+      await loadBookings();
+    }
+
+    // --- Rooms ---
+    async function loadRooms() {
+      const { data } = await sb.from('rooms').select('*').order('sort_order');
+      rooms = data || [];
+      const select = document.getElementById('filterRoom');
+      select.innerHTML = '<option value="">All Rooms</option>';
+      rooms.forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = r.id;
+        opt.textContent = r.name_en;
+        select.appendChild(opt);
+      });
+    }
+
+    function getRoomName(roomId) {
+      const room = rooms.find(r => r.id === roomId);
+      return room ? room.name_en : '—';
+    }
+
+    // --- Bookings ---
+    async function loadBookings() {
+      const date = document.getElementById('filterDate').value;
+      const roomId = document.getElementById('filterRoom').value;
+      const status = document.getElementById('filterStatus').value;
+
+      let query = sb.from('bookings').select('*').order('booking_date', { ascending: true }).order('time_slot', { ascending: true });
+
+      if (date) query = query.eq('booking_date', date);
+      if (roomId) query = query.eq('room_id', roomId);
+      if (status) query = query.eq('status', status);
+
+      const { data } = await query;
+      currentBookings = data || [];
+      renderBookings();
+      renderStats();
+    }
+
+    function renderBookings() {
+      const tbody = document.getElementById('bookingsBody');
+      const empty = document.getElementById('emptyState');
+
+      if (currentBookings.length === 0) {
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+      tbody.innerHTML = currentBookings.map(b => `
+        <tr>
+          <td>${b.booking_date}</td>
+          <td>${b.time_slot}</td>
+          <td>${getRoomName(b.room_id)}</td>
+          <td>${escapeHtml(b.customer_name)}</td>
+          <td><a href="tel:${escapeHtml(b.phone)}" style="color:var(--accent2)">${escapeHtml(b.phone)}</a></td>
+          <td><a href="mailto:${escapeHtml(b.email)}" style="color:var(--accent2)">${escapeHtml(b.email)}</a></td>
+          <td>${b.players}</td>
+          <td><span class="badge badge-${escapeHtml(b.status)}">${escapeHtml(b.status)}</span></td>
+          <td>
+            ${b.status === 'pending' ? `
+              <button class="action-btn btn-confirm" onclick="updateStatus('${b.id}','confirmed')">Confirm</button>
+              <button class="action-btn btn-cancel" onclick="updateStatus('${b.id}','cancelled')">Cancel</button>
+            ` : b.status === 'confirmed' ? `
+              <button class="action-btn btn-cancel" onclick="updateStatus('${b.id}','cancelled')">Cancel</button>
+            ` : '—'}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderStats() {
+      document.getElementById('statTotal').textContent = currentBookings.length;
+      document.getElementById('statPending').textContent = currentBookings.filter(b => b.status === 'pending').length;
+      document.getElementById('statConfirmed').textContent = currentBookings.filter(b => b.status === 'confirmed').length;
+    }
+
+    async function updateStatus(bookingId, status) {
+      await sb.from('bookings').update({ status }).eq('id', bookingId);
+      await loadBookings();
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    // --- Filters ---
+    document.getElementById('filterDate').addEventListener('change', loadBookings);
+    document.getElementById('filterRoom').addEventListener('change', loadBookings);
+    document.getElementById('filterStatus').addEventListener('change', loadBookings);
+
+    // --- Init ---
+    checkSession();
+  </script>
+</body>
+</html>
